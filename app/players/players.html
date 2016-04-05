@@ -1,0 +1,46 @@
+<h1>{{titlePage}}</h1>
+
+{{test}}
+
+<div class="well row">
+    <form>
+        <div><label>First Name</label><input type="text" [(ngModel)]="newPlayer.fname"/></div>
+        <div><label>Last Name</label><input type="text" [(ngModel)]="newPlayer.lname"/></div>
+        <div><label>Team</label><input type="text" [(ngModel)]="newPlayer.team"/></div>
+        <div><label>Position</label><input type="text" [(ngModel)]="newPlayer.pos"/></div>
+        <div><label>Number</label><input type="text" [(ngModel)]="newPlayer.number"/></div>
+
+        <div class="alert clearfix" [class.alert-success]="newPlayer.team === 'bucks'">
+            <ul class="list-group col-md-4">
+                <li class="list-group-item" *ngIf="newPlayer.fname">{{newPlayer.fname}}</li>
+                <li class="list-group-item" *ngIf="newPlayer.lname">{{newPlayer.lname}}</li>
+                <li class="list-group-item" *ngIf="newPlayer.team">{{newPlayer.team}}</li>
+                <li class="list-group-item" *ngIf="newPlayer.pos">{{newPlayer.pos}}</li>
+                <li class="list-group-item" *ngIf="newPlayer.number" [style.width.px]="newPlayer.number * 10">{{newPlayer.number}}</li>
+                <li class="list-group-item"><rating-star rating="1" (ratingClicked)="onRatingClicked($event)"></rating-star></li>
+            </ul>
+        </div>
+
+        <div class="alert clearfix" [class.alert-danger]="newPlayer.team !== 'bucks' && newPlayer.team !== ''" *ngIf="newPlayer.team !== ''">
+            <p>Fire the coach!</p>
+        </div>
+        <button class="btn btn-primary" (click)="addPlayer()">ADD PLAYER</button>
+    </form>
+</div>
+
+<div *ngIf="players" class="row">
+    <ul *ngFor="#player of players; #i = index" class="list-group col-md-4">
+        <li class="list-group-item"> <a [routerLink]="['PlayerDetail', {id: player.id}]">
+            View Details
+        </a></li>
+        <li class="list-group-item"><a (click)="toggleActive(i)">{{player.active ? 'active':'inactive'}}</a></li>
+        <li class="list-group-item">{{player.fname | uppercase}}</li>
+        <li class="list-group-item">{{player.lname | uppercase}}</li>
+        <li class="list-group-item" [ngClass]="{'text-success': player.team === 'bucks'}">{{player.team | uppercase}}</li>
+        <li class="list-group-item">{{player.pos | uppercase}}</li>
+        <li class="list-group-item" *ngIf="player.goto_move">{{player.goto_move | lowercase}}</li>
+        <li class="list-group-item">{{player.number}}</li>
+        <li class="list-group-item"><rating-star [rating]="player.rating" (ratingClicked)="onRatingClicked($event)"></rating-star></li>
+        <li class="list-group-item">{{player.minutes | minutesFilter}}<minutes-bar [minutes]="player.minutes" [player-index]="i" (minutesClicked)="onMinutesClicked($event)"></minutes-bar></li>
+    </ul>
+</div>

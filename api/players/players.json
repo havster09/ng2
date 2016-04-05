@@ -1,0 +1,23 @@
+[
+  {
+    "fname":"gianis",
+    "lname":"antetakumpo",
+    "team":"bucks",
+    "pos":"sf",
+    "goto_move":"eurostep",
+    "active":true,
+    "number":34,
+    "minutes":3,
+    "rating":5
+  },
+  {
+    "fname":"larry",
+    "lname":"sanders",
+    "team":"bucks",
+    "pos":"c",
+    "active":false,
+    "number":6,
+    "minutes":10,
+    "rating":2
+  }
+]
